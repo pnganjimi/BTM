@@ -126,7 +126,6 @@ class DNN_XtraDeep(nn.Module):
 class FTTransformer(nn.Module):
     """
     FT-Transformer for tabular data.
-    Designed to plug directly into your current training setup.
     Input:  (B, input_dim)
     Output: (B, 1)
     """
@@ -790,11 +789,8 @@ def get_model(
     *,
     output_dim: int | None = None,
 ) -> nn.Module:
-    """Construct the architecture used by a dataset/task.
-
-    ``dataset`` uses the unambiguous repo names ``eicu``, ``mimic3_ihm``
-    and ``mimic3_ph``.  This prevents IHM and phenotype checkpoints from
-    sharing the same ``mimic3`` directory/name.
+    """
+    dataset: ``eicu``, ``mimic3_ihm`` and ``mimic3_ph``.  
     """
     dataset = dataset.lower()
     if dataset not in DEFAULT_MODEL:
