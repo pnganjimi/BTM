@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btm-research"
+version = "0.1.0"
+description = "Teacher trajectories, Bezier mode connections and BTM synthetic-data experiments"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "matplotlib",
+  "torch>=2.0",
+  "pytorch-optimizer",
+  "tqdm",
+  "wandb",
+]
+
+[tool.setuptools.packages.find]
+include = ["btm*"]

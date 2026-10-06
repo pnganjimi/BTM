@@ -1,0 +1,11 @@
+numpy
+scipy
+scikit-learn
+matplotlib
+torch>=2.0
+pytorch-optimizer
+tqdm
+wandb
+jupyter
+ipykernel
+pytest
