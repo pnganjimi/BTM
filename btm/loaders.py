@@ -1,10 +1,4 @@
-
-"""Dataset loading utilities for eICU and MIMIC-III experiments.
-
-The public entry point is :func:`load_dataset`, which always returns named
-train/validation/test loaders and avoids the split-order ambiguity that was
-present in the original notebooks.
-"""
+"""Dataset loading utilities for eICU and MIMIC-III experiments."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -32,19 +26,15 @@ def loaders_eicu(path="../data/eicu/", train_batch=64, val_batch=64, test_batch=
     X = np.array(X)
     y = np.array(y)
 
-    # ----- First split: train (70%) vs temp (30%) -----
+    # ----- First split: train (65%) vs temp (35%) -----
     X_train, X_temp, y_train, y_temp = train_test_split(
-        X, y, test_size=0.30, stratify=y, random_state=random_seed
+        X, y, test_size=0.65, stratify=y, random_state=random_seed
     )
 
-    # ----- Second split: validation (15%) vs test (15%) from temp -----
+    # ----- Second split: validation (15%) vs test (20%) from temp -----
     X_val, X_test, y_val, y_test = train_test_split(
-        X_temp, y_temp, test_size=0.5, stratify=y_temp, random_state=random_seed
-    )
-
-    # Train set: 34513 samples (3151 positive, 31362 negative)
-    # Val set: 7396 samples (675 positive, 6721 negative)
-    # Test set: 7396 samples (675 positive, 6721 negative)    
+        X_temp, y_temp, test_size=0.34, stratify=y_temp, random_state=random_seed
+    ) 
 
     # Data has already been pre-processed
 
@@ -432,14 +422,10 @@ def load_dataset(
     random_seed: int = 42,
     threshold: int = 48,
 ) -> DatasetBundle:
-    """Load one of the three datasets used by the paper.
-
-    Parameters
-    ----------
+    """
     dataset:
-        One of ``"eicu"``, ``"mimic3_ihm"`` or ``"mimic3_ph"``.
+        ``"eicu"``, ``"mimic3_ihm"`` or ``"mimic3_ph"``.
     data_root:
-        Repository-level data directory. Expected subdirectories are
         ``eicu/``, ``mimic3/`` and ``mimic3/pheno/``.
     """
     dataset = dataset.lower()
